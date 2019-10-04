@@ -6,4 +6,5 @@
 erl_crash.dump
 *.ez
 const-*.tar
-.DS_Store
+/.DS_Store
+/.elixir_ls
