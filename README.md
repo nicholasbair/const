@@ -9,7 +9,7 @@ Built to work with Heroku, other systems have not been tested.
 ```elixir
 def deps do
   [
-    {:const, git: "https://github.com/nicholasbair/const.git", tag: "0.1"}
+    {:const, git: "https://github.com/nicholasbair/const.git"}
   ]
 end
 ```
