@@ -20,8 +20,18 @@ defmodule Const do
       iex> is_integer(int)
       true
 
+      iex> System.put_env("NEG_INT", "-123")
+      iex> int = Const.fetch("NEG_INT")
+      iex> is_integer(int)
+      true
+
       iex> System.put_env("FLOAT", "1.23")
       iex> flt = Const.fetch("FLOAT")
+      iex> is_float(flt)
+      true
+
+      iex> System.put_env("NEG_FLOAT", "-1.23")
+      iex> flt = Const.fetch("NEG_FLOAT")
       iex> is_float(flt)
       true
 
@@ -50,7 +60,7 @@ defmodule Const do
   defp convert(nil, _var), do: nil
 
   defp convert(val, _var) do
-    case String.match?(val, ~r/[a-zA-Z-]/) do
+    case String.match?(val, ~r/[a-zA-Z]/) do
       true -> convert_str(val)
       false -> convert_num(val)
     end
