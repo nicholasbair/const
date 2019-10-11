@@ -15,6 +15,11 @@ defmodule Const do
       iex> is_bitstring(str)
       true
 
+      iex> System.put_env("ACCT", "000-000-000")
+      iex> acct = Const.fetch("ACCT")
+      iex> is_bitstring(acct)
+      true
+
       iex> System.put_env("INT", "123")
       iex> int = Const.fetch("INT")
       iex> is_integer(int)
@@ -60,7 +65,7 @@ defmodule Const do
   defp convert(nil, _var), do: nil
 
   defp convert(val, _var) do
-    case String.match?(val, ~r/[a-zA-Z]/) do
+    case String.match?(val, ~r/[a-zA-Z]/) or String.match?(val, ~r/^[\d]+(-)+[\d]/) do
       true -> convert_str(val)
       false -> convert_num(val)
     end
