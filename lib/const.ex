@@ -44,6 +44,11 @@ defmodule Const do
       iex> bool = Const.fetch("BOOL")
       iex> is_boolean(bool)
       true
+
+      iex> System.put_env("JSON", "{\"testing\": \"things\"}")
+      iex> json = Const.fetch("JSON")
+      iex> is_map(json)
+      true
   """
 
   def fetch!(var) do
@@ -78,6 +83,15 @@ defmodule Const do
     end
   end
 
-  defp convert_str(val), do: val
+  defp convert_str(val) do
+    case is_json?(val) do
+      true -> Jason.decode!(val)
+      false -> val
+    end
+  end
+
+  defp is_json?(str) do
+    String.match?(str, ~r/{/)
+  end
 
 end
