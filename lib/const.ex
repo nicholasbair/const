@@ -51,7 +51,7 @@ defmodule Const do
       true
   """
 
-  @spec fetch!(binary) :: nil | boolean | float | integer | binary | map
+  @spec fetch!(binary) :: boolean | float | integer | binary | map
   def fetch!(var) do
     case val = fetch(var) do
       nil -> raise "Env variable error, no value found for #{var}."
@@ -67,7 +67,7 @@ defmodule Const do
   end
 
   # -- Private --
-  @spec convert(nil | binary, binary) :: boolean | nil
+  @spec convert(nil | binary, binary) :: nil | boolean | float | integer | binary | map
   defp convert(val, _var) when val in ["true", "TRUE"], do: true
   defp convert(val, _var) when val in ["false", "FALSE"], do: false
   defp convert(nil, _var), do: nil
