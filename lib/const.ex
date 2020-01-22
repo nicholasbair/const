@@ -51,7 +51,7 @@ defmodule Const do
       true
   """
 
-  @spec fetch!(binary) :: boolean | float | integer | binary | map
+  @spec fetch!(String.t) :: boolean | float | integer | String.t | map
   def fetch!(var) do
     case val = fetch(var) do
       nil -> raise "Env variable error, no value found for #{var}."
@@ -59,7 +59,7 @@ defmodule Const do
     end
   end
 
-  @spec fetch(binary) :: nil | boolean | float | integer | binary | map
+  @spec fetch(String.t) :: nil | boolean | float | integer | String.t | map
   def fetch(var) do
     var
     |> System.get_env
@@ -67,7 +67,7 @@ defmodule Const do
   end
 
   # -- Private --
-  @spec convert(nil | binary, binary) :: nil | boolean | float | integer | binary | map
+  @spec convert(nil | String.t, String.t) :: nil | boolean | float | integer | String.t | map
   defp convert(val, _var) when val in ["true", "TRUE"], do: true
   defp convert(val, _var) when val in ["false", "FALSE"], do: false
   defp convert(nil, _var), do: nil
@@ -79,7 +79,7 @@ defmodule Const do
     end
   end
 
-  @spec convert_num(binary) :: float | integer
+  @spec convert_num(String.t) :: float | integer
   defp convert_num(val) do
     case String.match?(val, ~r/\d\./) do
       true -> String.to_float(val)
@@ -87,7 +87,7 @@ defmodule Const do
     end
   end
 
-  @spec convert_str(binary) :: map | binary
+  @spec convert_str(String.t) :: map | String.t
   defp convert_str(val) do
     case is_json?(val) do
       true -> Jason.decode!(val)
@@ -95,7 +95,7 @@ defmodule Const do
     end
   end
 
-  @spec is_json?(binary) :: boolean
+  @spec is_json?(String.t) :: boolean
   defp is_json?(str), do: String.match?(str, ~r/{/)
 
 end
