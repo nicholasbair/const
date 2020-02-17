@@ -90,7 +90,7 @@ defmodule Const do
   @spec convert_str(String.t) :: map | String.t
   defp convert_str(val) do
     case is_json?(val) do
-      true -> Jason.decode!(val)
+      true -> Jason.decode!(val, [keys: :atoms])
       false -> val
     end
   end

@@ -30,7 +30,7 @@ defmodule MyModule do
 
   def init(arg) do
     # fetch!/1 will raise an error if no value is present
-    fetch!("AN_ENV)
+    fetch!("AN_ENV")
     |> use_value
   end
 
