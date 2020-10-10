@@ -78,6 +78,16 @@ defmodule Const do
       iex> is_boolean(bool)
       true
 
+      iex> System.put_env("BOOL", "TRUE")
+      iex> bool = Const.fetch("BOOL")
+      iex> is_boolean(bool)
+      true
+
+      iex> System.put_env("BOOL", "True")
+      iex> bool = Const.fetch("BOOL")
+      iex> is_boolean(bool)
+      true
+
       iex> System.put_env("BOOL", "true")
       iex> bool = Const.fetch("BOOL", :boolean)
       iex> is_boolean(bool)
@@ -147,8 +157,8 @@ defmodule Const do
   end
 
   @spec convert(nil | String.t()) :: nil | boolean() | float() | integer() | String.t() | map()
-  defp convert(val) when val in ["true", "TRUE"], do: true
-  defp convert(val) when val in ["false", "FALSE"], do: false
+  defp convert(val) when val in ["true", "True", "TRUE"], do: true
+  defp convert(val) when val in ["false", "False", "FALSE"], do: false
   defp convert(nil), do: nil
 
   defp convert(val) do
